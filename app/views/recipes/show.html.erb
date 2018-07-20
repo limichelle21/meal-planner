@@ -7,7 +7,17 @@
 
 <p>
   <strong>Instruction:</strong>
-  <%= @recipe.instruction %>
+  <%= @recipe.instructions %>
+</p>
+
+<p>
+  <strong>Ingredients</strong>
+  <%= render partial: 'ingredients/list', locals: { ingredients: @recipe.ingredients} %>
+</p>
+
+<p>
+  <strong>Tags</strong>
+  <%= render partial: 'tags/list', locals: { tags: @recipe.tags} %>
 </p>
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |

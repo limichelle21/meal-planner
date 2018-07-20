@@ -4,7 +4,12 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    if params[:ingredient]
+      # @recipes = Recipe.where("ingredient LIKE ?", params[:ingredient])
+      @recipes = Recipe.joins(:ingredients).where("ingredient LIKE ?", params[:ingredient])
+    else
+      @recipes = Recipe.all
+    end
   end
 
   # GET /recipes/1
@@ -28,6 +33,8 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       if @recipe.save
+        @recipe.ingredients = Ingredient.update_ingredients(params[:recipe][:ingredients])
+        @recipe.tags = Tag.update_tags(params[:recipe][:tags])
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -42,6 +49,8 @@ class RecipesController < ApplicationController
   def update
     respond_to do |format|
       if @recipe.update(recipe_params)
+        @recipe.ingredients = Ingredient.update_ingredients(params[:recipe][:ingredients])
+        @recipe.tags = Tag.update_tags(params[:recipe][:tags])
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipe }
       else
@@ -69,6 +78,6 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :instruction)
+      params.require(:recipe).permit(:name, :instructions)
     end
 end

@@ -1,0 +1,4 @@
+<div class="form-group">
+	<%= f.label :ingredients %>
+	<%= f.text_field :ingredients, class: 'form-control', placeholder: "Enter ingredients (separated by commas)", value: ingredients.map(&:name).join(', ') %>
+</div>

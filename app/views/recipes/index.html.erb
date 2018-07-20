@@ -2,6 +2,11 @@
 
 <h1>Recipes</h1>
 
+<%= form_tag(recipes_path, method: :get) do %>
+  Search by Ingredient <%= text_field_tag :ingredient, params[:ingredient] %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -15,7 +20,7 @@
     <% @recipes.each do |recipe| %>
       <tr>
         <td><%= recipe.name %></td>
-        <td><%= recipe.instruction %></td>
+        <td><%= recipe.instructions %></td>
         <td><%= link_to 'Show', recipe %></td>
         <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
         <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
