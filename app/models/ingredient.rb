@@ -1,6 +1,5 @@
 class Ingredient < ApplicationRecord
-  has_many :ingredientships
-  has_many :recipes, through: :ingredientships
+  has_and_belongs_to_many :recipes
 
   def self.update_ingredients(ingredient_string)
 		return Ingredient.none if ingredient_string.blank?

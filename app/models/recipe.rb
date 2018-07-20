@@ -1,6 +1,5 @@
 class Recipe < ApplicationRecord
-  has_many :ingredientships
-  has_many :ingredients, through: :ingredientships
+  has_and_belongs_to_many :ingredients
 
   has_many :taggings
   has_many :tags, through: :taggings
