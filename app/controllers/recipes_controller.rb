@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
   def index
     if params[:ingredient]
       # @recipes = Recipe.where("ingredient LIKE ?", params[:ingredient])
-      ingredients = Ingredient.where("ingredient LIKE ?", params[:ingredient])
+      ingredient = Ingredient.where("name LIKE ?", params[:ingredient]).first
       @recipes = ingredient.recipes
     else
       @recipes = Recipe.all
